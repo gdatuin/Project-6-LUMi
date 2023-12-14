@@ -10,18 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_product'])) {
     $product_id = filter_input(INPUT_POST, 'product_id', FILTER_SANITIZE_NUMBER_INT);
 
 
-    $stmt = $db->prepare("SELECT image FROM products WHERE product_id = :product_id");
-    $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
-    $stmt->execute();
-    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    $statement = $db->prepare("SELECT image FROM products WHERE product_id = :product_id");
+    $statement->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+    $statement->execute();
+    $product = $statement->fetch(PDO::FETCH_ASSOC);
     $imageFile = $product['image'];
 
-    $stmt = $db->prepare("DELETE FROM products WHERE product_id = :product_id");
-    $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
-    $stmt->execute();
+    $statement = $db->prepare("DELETE FROM products WHERE product_id = :product_id");
+    $statement->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+    $statement->execute();
 
 
-    if ($stmt->rowCount() > 0) {
+    if ($statement->rowCount() > 0) {
 
         if (file_exists("images/" . $imageFile)) {
             unlink("images/" . $imageFile);

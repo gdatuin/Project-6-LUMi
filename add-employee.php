@@ -18,14 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = password_hash($username, PASSWORD_DEFAULT); 
 
     try {
-        $stmt = $db->prepare("INSERT INTO users (username, email, password, role, first_name, last_name) VALUES (:username, :email, :password, :role, :first_name, :last_name)");
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':role', $role);
-        $stmt->bindParam(':first_name', $firstName);
-        $stmt->bindParam(':last_name', $lastName);
-        $stmt->execute();
+        $statement = $db->prepare("INSERT INTO users (username, email, password, role, first_name, last_name) VALUES (:username, :email, :password, :role, :first_name, :last_name)");
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':password', $password);
+        $statement->bindParam(':role', $role);
+        $statement->bindParam(':first_name', $firstName);
+        $statement->bindParam(':last_name', $lastName);
+        $statement->execute();
 
         echo "<script>alert('Employee added successfully!'); window.location.href='manage-employees.php';</script>";               
         exit;

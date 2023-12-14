@@ -3,9 +3,9 @@ session_start();
 require 'connect.php';
 
 try {
-    $stmt = $db->prepare("SELECT * FROM products ORDER BY product_id DESC LIMIT 3");
-    $stmt->execute();
-    $newestProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $statement = $db->prepare("SELECT * FROM products ORDER BY product_id DESC LIMIT 3");
+    $statement->execute();
+    $newestProducts = $statement->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
     $newestProducts = [];

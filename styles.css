@@ -155,6 +155,16 @@ body#edit-post
     
 }
 
+body#upload-profile
+{
+    background-image: url("images/profile-background.png");
+    display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+    
+}
+
 .main-profile
 {
     animation: fadeSlideDown 0.7s ease-in-out forwards;
@@ -531,6 +541,7 @@ div#heading h1
 	margin: 10px auto;
 	padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    margin-bottom: 20px;
 	
 }
 
@@ -856,7 +867,7 @@ div.listOfProducts img
     background-color:lavender;
     border: 3px solid #93e1fc;
     border-radius: 20px;
-    border-width: fit-content;
+    border-width: 6px;
 }
 
 .rating-number {
@@ -905,38 +916,6 @@ font-family: 'Bruno Ace', sans-serif;
   text-align: center;
 }
 
-/* div.item1 img {
-    animation-delay: 0.1s;
-}
-
-div.item2 img {
-    animation-delay: 0.2s;
-}
-
-div.item3 img {
-    animation-delay: 0.3s;
-}
-
-div.item4 img {
-    animation-delay: 0.4s;
-}
-
-div.item5 img {
-    animation-delay: 0.5s;
-}
-
-div.item6 img {
-    animation-delay: 0.6s;
-}
-
-div.item7 img {
-    animation-delay: 0.7s;
-}
-
-div.item8 img {
-    animation-delay: 0.8s;
-}
- */
 
 
 @keyframes fadeSlideDown {
@@ -1054,7 +1033,7 @@ div.listOfProducts a:hover{
 }
 
  .edit-product-form input[type="submit"]:hover {
-    background-color: #4CAE4C; /
+    background-color: #4CAE4C; 
 }
 
 
@@ -1124,7 +1103,7 @@ div.listOfProducts a:hover{
 
 .review-item img.review-image {
     max-height: 200px; 
-    object-fit: cover; /
+    object-fit: cover; 
 }
 
 
@@ -1238,7 +1217,7 @@ form#submit-review-form textarea {
 }
 
  #add-product-form input[type="submit"]:hover {
-    background-color: #4CAE4C; /
+    background-color: #4CAE4C; 
 }
  
 .sorting-options
@@ -1664,7 +1643,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(238,146,229,1) 0%
 }
 
  #add-employee-form input[type="submit"]:hover {
-    background-color: #4CAE4C; /
+    background-color: #4CAE4C; 
 }
 
 
@@ -1853,6 +1832,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(238,146,229,1) 0%
 .logout-form {
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .logout-button {
@@ -1863,8 +1843,71 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(238,146,229,1) 0%
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    
 }
 
 .logout-button:hover {
     background-color: #d32f2f;
 }
+
+.profile-image img, .current-profile-picture img
+{
+    border-radius: 100%;
+    border:#000 3px solid;
+    
+}
+
+.current-profile-picture
+{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.upload-profile-form {
+    max-width: 600px; 
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    font-family: 'Russo One', sans-serif;
+}
+
+
+.upload-profile-form label{
+    display: block; 
+    margin-top: 10px;
+    margin-bottom: 5px; 
+    color: #333; 
+    font-size: 1.1em;
+}
+
+
+ .upload-profile-form input[type="submit"] {
+    background-color: #5CB85C; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1.1em; 
+    transition: background-color 0.3s; 
+    font-family: 'Bruno Ace', sans;
+    margin-top: 20px;
+}
+
+ .upload-profile-form input[type="submit"]:hover {
+    background-color: #4CAE4C; 
+}
+
+.remove-picture input[type="submit"]
+{
+    background-color: rgb(189, 15, 15);
+}
+
+.remove-picture input[type="submit"]:hover
+{
+    background-color: rgb(235, 19, 19);
+}
+

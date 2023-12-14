@@ -19,13 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $form_username = trim($_POST['username']);
     $form_password = trim($_POST['password']);
 
-    $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
-    $stmt->bindParam(':username', $form_username, PDO::PARAM_STR);
-    $stmt->execute();
+    $statement = $db->prepare("SELECT * FROM users WHERE username = :username");
+    $statement->bindParam(':username', $form_username, PDO::PARAM_STR);
+    $statement->execute();
 
-    if ($stmt->rowCount() > 0) 
+    if ($statement->rowCount() > 0) 
     {
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
         
         if (password_verify($form_password, $row['password'])) 
         {

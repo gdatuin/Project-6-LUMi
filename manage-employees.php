@@ -10,9 +10,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
 
 
 function fetchEmployees($db) {
-     $stmt = $db->prepare("SELECT user_id, CONCAT(last_name, ', ', first_name) AS full_name, username, email, role FROM users WHERE role != 'customer'");
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+     $statement = $db->prepare("SELECT user_id, CONCAT(last_name, ', ', first_name) AS full_name, username, email, role FROM users WHERE role != 'customer'");
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
 $employees = fetchEmployees($db);
@@ -36,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_role'])) {
     }
 
     if ($reason) {
-        $updateStmt = $db->prepare("UPDATE users SET role = :new_role WHERE user_id = :user_id");
-        $updateStmt->bindParam(':new_role', $newRole);
-        $updateStmt->bindParam(':user_id', $userId);
-        $updateStmt->execute();
+        $updatestatement = $db->prepare("UPDATE users SET role = :new_role WHERE user_id = :user_id");
+        $updatestatement->bindParam(':new_role', $newRole);
+        $updatestatement->bindParam(':user_id', $userId);
+        $updatestatement->execute();
         
        
 
@@ -87,10 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_role'])) {
             <tbody>
                 <?php foreach ($employees as $employee): ?>
                     <tr>
-                        <td><?= ($employee['full_name']) ?></td>
-                        <td><?= ($employee['username']) ?></td>
-                        <td><?= ($employee['email']) ?></td>
-                        <td><?= $roleNames[$employee['role']] ?></td>
+                        <td><?= htmlspecialchars($employee['full_name']) ?></td>
+                        <td><?= htmlspecialchars($employee['username']) ?></td>
+                        <td><?= htmlspecialchars($employee['email']) ?></td>
+                        <td><?= htmlspecialchars($roleNames[$employee['role']]) ?></td>
                         <td>
                             <?php if ($employee['user_id'] != $_SESSION['user_id'] || $_SESSION['role'] !== 'admin'): ?>
                             <form method="post" onsubmit="return confirm('Are you sure you want to apply the following changes?');">

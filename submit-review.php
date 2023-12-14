@@ -53,18 +53,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        $stmt = $db->prepare("INSERT INTO reviews (product_id, user_id, guest_name, rating, review_text, review_image) VALUES (:product_id, :user_id, :guest_name, :rating, :review_text, :review_image)");
+        $statement = $db->prepare("INSERT INTO reviews (product_id, user_id, guest_name, rating, review_text, review_image) VALUES (:product_id, :user_id, :guest_name, :rating, :review_text, :review_image)");
         
     
-        $stmt->bindValue(':user_id', $_SESSION['user_id'] ?? NULL, PDO::PARAM_INT);
-        $stmt->bindValue(':guest_name', $formData['guest_name'] ?? NULL, PDO::PARAM_STR);
+        $statement->bindValue(':user_id', $_SESSION['user_id'] ?? NULL, PDO::PARAM_INT);
+        $statement->bindValue(':guest_name', $formData['guest_name'] ?? NULL, PDO::PARAM_STR);
 
-        $stmt->bindValue(':product_id', $formData['product_id'], PDO::PARAM_INT);
-        $stmt->bindValue(':rating', $formData['rating'], PDO::PARAM_INT);
-        $stmt->bindValue(':review_text', $formData['review_text'], PDO::PARAM_STR);
-        $stmt->bindValue(':review_image', $imageFileName, $imageFileName ? PDO::PARAM_STR : PDO::PARAM_NULL);
+        $statement->bindValue(':product_id', $formData['product_id'], PDO::PARAM_INT);
+        $statement->bindValue(':rating', $formData['rating'], PDO::PARAM_INT);
+        $statement->bindValue(':review_text', $formData['review_text'], PDO::PARAM_STR);
+        $statement->bindValue(':review_image', $imageFileName, $imageFileName ? PDO::PARAM_STR : PDO::PARAM_NULL);
         
-        $stmt->execute();
+        $statement->execute();
 
 
         $_SESSION['review_success_message'] = "Review submitted successfully!";

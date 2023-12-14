@@ -18,18 +18,18 @@ $category_id = '';
 
 $categories = [];
 try {
-    $categoryStmt = $db->query("SELECT * FROM categories");
-    $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
+    $categorystatement = $db->query("SELECT * FROM categories");
+    $categories = $categorystatement->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Error: " . $e->getMessage());
 }
 
 if ($product_id) {
     try {
-        $stmt = $db->prepare("SELECT * FROM products WHERE product_id = :product_id");
-        $stmt->bindParam(':product_id', $product_id);
-        $stmt->execute();
-        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        $statement = $db->prepare("SELECT * FROM products WHERE product_id = :product_id");
+        $statement->bindParam(':product_id', $product_id);
+        $statement->execute();
+        $product = $statement->fetch(PDO::FETCH_ASSOC);
         
         if ($product) {
             $product_name = $product['product_name'];
@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_product'])) {
 
     if ($newCategoryName) {
         try {
-            $newCategoryStmt = $db->prepare("INSERT INTO categories (category_name) VALUES (:category_name)");
-            $newCategoryStmt->execute([':category_name' => $newCategoryName]);
+            $newCategorystatement = $db->prepare("INSERT INTO categories (category_name) VALUES (:category_name)");
+            $newCategorystatement->execute([':category_name' => $newCategoryName]);
             $category_id = $db->lastInsertId(); 
         } catch (PDOException $e) {
             die("Error: " . $e->getMessage());
@@ -101,17 +101,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_product'])) {
     }
 
     
-
  try {
-        $updateStmt = $db->prepare("UPDATE products SET product_name = :product_name, description = :description, price = :price, inventory_count = :inventory_count, image = :image, category_id = :category_id WHERE product_id = :product_id");
-        $updateStmt->bindParam(':product_name', $product_name);
-        $updateStmt->bindParam(':description', $description);
-        $updateStmt->bindParam(':price', $price);
-        $updateStmt->bindParam(':inventory_count', $inventory_count);
-        $updateStmt->bindParam(':image', $image); 
-        $updateStmt->bindParam(':category_id', $category_id);
-        $updateStmt->bindParam(':product_id', $product_id);
-        $updateStmt->execute();
+
+        $oldCategoryId = $product['category_id'];
+
+        $updatestatement = $db->prepare("UPDATE products SET product_name = :product_name, description = :description, price = :price, inventory_count = :inventory_count, image = :image, category_id = :category_id WHERE product_id = :product_id");
+        $updatestatement->bindParam(':product_name', $product_name);
+        $updatestatement->bindParam(':description', $description);
+        $updatestatement->bindParam(':price', $price);
+        $updatestatement->bindParam(':inventory_count', $inventory_count);
+        $updatestatement->bindParam(':image', $image); 
+        $updatestatement->bindParam(':category_id', $category_id);
+        $updatestatement->bindParam(':product_id', $product_id);
+        $updatestatement->execute();
+
+          $checkCategorystatement = $db->prepare("SELECT COUNT(*) FROM products WHERE category_id = :category_id");
+        $checkCategorystatement->execute([':category_id' => $oldCategoryId]);
+        $productCount = $checkCategorystatement->fetchColumn();
+
+        if ($productCount == 0) {
+            $deleteCategorystatement = $db->prepare("DELETE FROM categories WHERE category_id = :category_id");
+            $deleteCategorystatement->execute([':category_id' => $oldCategoryId]);
+        }
 
         header('Location: product.php?id=' . $product_id);
         exit;

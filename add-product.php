@@ -60,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
      if (isset($_POST['category']) && $_POST['category'] === 'new' && !empty($_POST['new_category_name'])) {
         $newCategoryName = filter_input(INPUT_POST, 'new_category_name', FILTER_SANITIZE_STRING);
-        $insertCategoryStmt = $db->prepare("INSERT INTO categories (category_name) VALUES (?)");
-        $insertCategoryStmt->execute([$newCategoryName]);
+        $insertCategorystatement = $db->prepare("INSERT INTO categories (category_name) VALUES (?)");
+        $insertCategorystatement->execute([$newCategoryName]);
         $category_id = $db->lastInsertId();
     } else {
         $category_id = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_NUMBER_INT);
@@ -80,14 +80,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($image) {
         try {
-            $stmt = $db->prepare("INSERT INTO products (product_name, description, price, inventory_count, image, category_id) VALUES (:product_name, :description, :price, :inventory_count, :image, :category_id)");
-            $stmt->bindParam(':product_name', $product_name);
-            $stmt->bindParam(':description', $description);
-            $stmt->bindParam(':price', $price);
-            $stmt->bindParam(':inventory_count', $inventory_count);
-            $stmt->bindParam(':image', $image);
-            $stmt->bindParam(':category_id', $category_id);
-            $stmt->execute();
+            $statement = $db->prepare("INSERT INTO products (product_name, description, price, inventory_count, image, category_id) VALUES (:product_name, :description, :price, :inventory_count, :image, :category_id)");
+            $statement->bindParam(':product_name', $product_name);
+            $statement->bindParam(':description', $description);
+            $statement->bindParam(':price', $price);
+            $statement->bindParam(':inventory_count', $inventory_count);
+            $statement->bindParam(':image', $image);
+            $statement->bindParam(':category_id', $category_id);
+            $statement->execute();
             echo "<script>alert('Product Added Successfully!'); window.location.href='products.php';</script>"; 
             exit;
         } catch (PDOException $e) {

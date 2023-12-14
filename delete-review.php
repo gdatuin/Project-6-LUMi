@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['review_id'])) {
 
     try {
 
-        $stmt = $db->prepare("DELETE FROM reviews WHERE review_id = :review_id");
-        $stmt->bindParam(':review_id', $review_id, PDO::PARAM_INT);
-        $stmt->execute();
+        $statement = $db->prepare("DELETE FROM reviews WHERE review_id = :review_id");
+        $statement->bindParam(':review_id', $review_id, PDO::PARAM_INT);
+        $statement->execute();
 
 
         $_SESSION['message'] = "Review deleted successfully!";

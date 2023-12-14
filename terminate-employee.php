@@ -9,10 +9,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
 }
 
 function fetchEmployees($db, $currentUserId) {
-    $stmt = $db->prepare("SELECT user_id, CONCAT(last_name, ', ', first_name) AS full_name, username, email, role FROM users WHERE role != 'customer' AND user_id != :current_user_id");
-    $stmt->bindParam(':current_user_id', $currentUserId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $statement = $db->prepare("SELECT user_id, CONCAT(last_name, ', ', first_name) AS full_name, username, email, role FROM users WHERE role != 'customer' AND user_id != :current_user_id");
+    $statement->bindParam(':current_user_id', $currentUserId, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
 $roleNames = [
@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['terminate_employee']))
     $reason = filter_input(INPUT_POST, 'reason', FILTER_SANITIZE_STRING);
 
     if ($reason) {
-        $deleteStmt = $db->prepare("DELETE FROM users WHERE user_id = :user_id");
-        $deleteStmt->bindParam(':user_id', $userId);
-        $deleteStmt->execute();
+        $deletestatement = $db->prepare("DELETE FROM users WHERE user_id = :user_id");
+        $deletestatement->bindParam(':user_id', $userId);
+        $deletestatement->execute();
 
         echo "<script>alert('Employee terminated successfully!'); window.location.href='terminate-employee.php';</script>";  
         exit;

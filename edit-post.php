@@ -11,9 +11,9 @@ if (!isset($_SESSION['loggedin']) || !in_array($_SESSION['role'], ['admin', 'con
 
 if (isset($_GET['post_id'])) {
     $postId = $_GET['post_id'];
-    $stmt = $db->prepare("SELECT * FROM blog_posts WHERE post_id = :post_id");
-    $stmt->execute(['post_id' => $postId]);
-    $post = $stmt->fetch(PDO::FETCH_ASSOC);
+    $statement = $db->prepare("SELECT * FROM blog_posts WHERE post_id = :post_id");
+    $statement->execute(['post_id' => $postId]);
+    $post = $statement->fetch(PDO::FETCH_ASSOC);
     if (!$post) {
         exit('Post not found.');
     }
@@ -60,15 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_post'])) {
 
     try {
         
-        $sql = "UPDATE blog_posts SET title = :title, content = :content, blog_image = :blog_image WHERE post_id = :post_id";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':title', $title);
-        $stmt->bindParam(':content', $content);
-        $stmt->bindParam(':blog_image', $imageFileName);
-        $stmt->bindParam(':post_id', $postId);
+        $query = "UPDATE blog_posts SET title = :title, content = :content, blog_image = :blog_image WHERE post_id = :post_id";
+        $statement = $db->prepare($query);
+        $statement->bindParam(':title', $title);
+        $statement->bindParam(':content', $content);
+        $statement->bindParam(':blog_image', $imageFileName);
+        $statement->bindParam(':post_id', $postId);
 
        
-        if ($stmt->execute()) {
+        if ($statement->execute()) {
             
             header('Location: index.php');
             exit;

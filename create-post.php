@@ -38,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create-post'])) {
     $content = filter_input(INPUT_POST, 'content', FILTER_UNSAFE_RAW);
     $userId = $_SESSION['user_id'] ?? null;
 
-    $sql = "INSERT INTO blog_posts (title, content, post_date, user_id, blog_image) VALUES (:title, :content, NOW(), :user_id, :blog_image)";
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':title', $title);
-    $stmt->bindValue(':content', $content);
-    $stmt->bindValue(':user_id', $userId);
-    $stmt->bindValue(':blog_image', $imageFileName);
-    $postCreated = $stmt->execute();
+    $query = "INSERT INTO blog_posts (title, content, post_date, user_id, blog_image) VALUES (:title, :content, NOW(), :user_id, :blog_image)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':content', $content);
+    $statement->bindValue(':user_id', $userId);
+    $statement->bindValue(':blog_image', $imageFileName);
+    $postCreated = $statement->execute();
 
     header('Location: index.php');
     exit;

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +23,7 @@
 
         <div class="logo">
         <a href="index.php">
+            
         <img src="images/lumi-logo.png" alt="LUMi">
         </a>    
         </div>

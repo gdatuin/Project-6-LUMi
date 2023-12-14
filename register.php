@@ -23,12 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          $query = "INSERT INTO users (username, password, email, role) VALUES (:username, :password, :email, :role)";
 
 try {
-    $stmt = $db->prepare($query);
-    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
-    $stmt->bindValue(':password', $hashedPassword, PDO::PARAM_STR); 
-    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-    $stmt->bindValue(':role', $role, PDO::PARAM_STR);
-    $stmt->execute();
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username, PDO::PARAM_STR);
+    $statement->bindValue(':password', $hashedPassword, PDO::PARAM_STR); 
+    $statement->bindValue(':email', $email, PDO::PARAM_STR);
+    $statement->bindValue(':role', $role, PDO::PARAM_STR);
+    $statement->execute();
 
     $last_id = $db->lastInsertId();
 
